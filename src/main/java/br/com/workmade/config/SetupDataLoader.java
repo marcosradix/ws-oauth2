@@ -1,7 +1,6 @@
 package br.com.workmade.config;
 
 import br.com.workmade.domain.User;
-import br.com.workmade.repository.UserRepository;
 import br.com.workmade.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
@@ -22,10 +21,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        User joao = new User(null, "João", "Souza", "joao@gmail.com");
+       User joao = new User(null, "João", "Souza", "joao@gmail.com");
         User maria = new User(null, "Eliezer", "Mendes", "eli.mendes@gmail.com");
         User userIfNotExists1 = createUserIfNotExists(joao);
         User userIfNotExists2 = createUserIfNotExists(maria);
+
+
     }
 
     public User createUserIfNotExists(final User user) {

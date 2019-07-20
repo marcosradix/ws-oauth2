@@ -3,17 +3,18 @@ package br.com.workmade.service;
 import br.com.workmade.domain.User;
 import br.com.workmade.repository.UserRepository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
+@Slf4j
 public class UserService {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -29,7 +30,11 @@ public class UserService {
     }
 
     public List<User> saveUsers(List<User> users){
-        LOGGER.info("Salvando user.");
+        log.info("Salvando user.");
         return this.userRepository.saveAll(users);
+    }
+
+    public Optional<User> findByEmail(String email){
+        return this.userRepository.findByEmail(email);
     }
 }

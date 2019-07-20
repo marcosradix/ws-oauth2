@@ -1,2 +1,2 @@
 # ws-oauth2
-aplcação spring boot oauth2
+aplicação spring boot oauth2

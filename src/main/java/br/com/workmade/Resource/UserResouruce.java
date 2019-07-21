@@ -4,10 +4,7 @@ import br.com.workmade.domain.User;
 import br.com.workmade.dto.UserDTO;
 import br.com.workmade.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,5 +30,15 @@ public class UserResouruce {
         UserDTO user = this.userService.findById(id);
         return ResponseEntity.ok().body(user);
     }
+
+
+    @PostMapping(value = "users")
+    public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO){
+        User user = this.userService.userFromDTO(userDTO);
+        return ResponseEntity.ok().body(new UserDTO(this.userService.saveUser(user)));
+
+    }
+
+
 
 }

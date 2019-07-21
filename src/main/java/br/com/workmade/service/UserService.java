@@ -44,4 +44,9 @@ public class UserService {
         User user = this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Dado não encontrado."));
         return new UserDTO(user );
     }
+
+    public User userFromDTO(UserDTO userDTO){
+        return new User(userDTO);
+    }
+
 }

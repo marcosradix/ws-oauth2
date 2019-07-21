@@ -1,17 +1,15 @@
 package br.com.workmade.domain;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import br.com.workmade.dto.UserDTO;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 @EqualsAndHashCode(of = {"id"})
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @Document
 public class User implements Serializable {
 
@@ -27,10 +25,10 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(String id, String firstName, String lastName, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public User(UserDTO userDTO) {
+        this.id = userDTO.getId();
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
+        this.email = userDTO.getEmail();
     }
 }

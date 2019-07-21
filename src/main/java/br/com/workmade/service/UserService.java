@@ -1,6 +1,8 @@
 package br.com.workmade.service;
 
 import br.com.workmade.domain.User;
+import br.com.workmade.dto.UserDTO;
+import br.com.workmade.exception.ObjectNotFoundException;
 import br.com.workmade.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +38,10 @@ public class UserService {
 
     public Optional<User> findByEmail(String email){
         return this.userRepository.findByEmail(email);
+    }
+
+    public UserDTO findById(String id){
+        User user = this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Dado não encontrado."));
+        return new UserDTO(user );
     }
 }

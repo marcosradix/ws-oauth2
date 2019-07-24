@@ -49,4 +49,13 @@ public class UserService {
         return new User(userDTO);
     }
 
+    public User updateUser(User user){
+        findById(user.getId());
+        return userRepository.save(user);
+
+    }
+
+    public void deleteUser(String id){
+        this.userRepository.deleteById(id);
+    }
 }

@@ -40,13 +40,17 @@ public class UserService {
         return this.userRepository.findByEmail(email);
     }
 
-    public UserDTO findById(String id){
+    public User findById(String id){
         User user = this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Dado não encontrado."));
-        return new UserDTO(user );
+        return user;
     }
 
     public User userFromDTO(UserDTO userDTO){
         return new User(userDTO);
+    }
+
+    public UserDTO userDTOFromUser(User user){
+        return new UserDTO(user);
     }
 
     public User updateUser(User user){

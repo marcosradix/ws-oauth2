@@ -19,6 +19,6 @@ public class RoleService {
     }
 
     public Role createRole(String name){
-        return this.roleRepository.save(Role.builder().name(name).build());
+        return this.roleRepository.save(new Role(name));
     }
 }

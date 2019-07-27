@@ -1,5 +1,6 @@
 package br.com.workmade.Resource;
 
+import br.com.workmade.domain.Role;
 import br.com.workmade.domain.User;
 import br.com.workmade.dto.UserDTO;
 import br.com.workmade.service.UserService;
@@ -28,8 +29,9 @@ public class UserResouruce {
 
     @GetMapping(value = "users/{id}")
     public ResponseEntity<UserDTO> findOne(@PathVariable(value = "id") String id){
-        UserDTO user = this.userService.findById(id);
-        return ResponseEntity.ok().body(user);
+        User user = this.userService.findById(id);
+        UserDTO userDTO =  this.userService.userDTOFromUser(user);
+        return ResponseEntity.ok().body(userDTO);
     }
 
 
@@ -54,6 +56,12 @@ public class UserResouruce {
         this.userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
+    }
+
+    @GetMapping(value = "users/{id}/roles")
+    public ResponseEntity<List<Role>> findRoles(@PathVariable String id){
+        User user =  userService.findById(id);
+        return ResponseEntity.ok().body(user.getRoles());
     }
 
 }

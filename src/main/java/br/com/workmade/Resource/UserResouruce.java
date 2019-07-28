@@ -4,6 +4,7 @@ import br.com.workmade.domain.Role;
 import br.com.workmade.domain.User;
 import br.com.workmade.dto.UserDTO;
 import br.com.workmade.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class UserResouruce {
 
     private UserService userService;
+    @Autowired
     public UserResouruce(UserService userService) {
         this.userService = userService;
     }
@@ -35,19 +37,28 @@ public class UserResouruce {
     }
 
 
-    @PostMapping(value = "users")
-    public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO){
+    @PostMapping(value = "users/dto")
+    public ResponseEntity<UserDTO> createUserDto(@RequestBody UserDTO userDTO){
         User user = this.userService.userFromDTO(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(this.userService.saveUser(user)));
 
     }
 
+    @PostMapping(value = "users")
+    public ResponseEntity<UserDTO> create(@RequestBody User user) {
+        User userSaved = this.userService.saveUser(user);
+        UserDTO userDTO = this.userService.userDTOFromUser(userSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+
+    }
+
 
     @PutMapping(value = "users/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable String id,@RequestBody UserDTO userDTO){
-        User user = this.userService.userFromDTO(userDTO);
+    public ResponseEntity<UserDTO> update(@PathVariable String id,@RequestBody User user){
         user.setId(id);
-        return ResponseEntity.ok().body(new UserDTO(this.userService.updateUser(user)));
+        User userUpdated = this.userService.updateUser(user);
+        UserDTO userDTO = this.userService.userDTOFromUser(userUpdated);
+        return ResponseEntity.ok().body(userDTO);
 
     }
     @DeleteMapping(value = "users/{id}")

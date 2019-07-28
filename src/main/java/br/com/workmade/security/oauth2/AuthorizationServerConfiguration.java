@@ -27,10 +27,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private String clientSecret = "front123";
     private static final String RESOURCE_ID = "rest_service";
 
+
     private AuthenticationManager authenticationManager;
     @Autowired
     private CustomUserDetailService userDetailsService;
 
+    @Autowired
     AuthorizationServerConfiguration(
             @Qualifier(value = "authenticationManagerBean") AuthenticationManager authenticationManager
     ){

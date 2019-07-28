@@ -26,7 +26,7 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private String password;
-    private boolean isEnabled;
+    private Boolean isEnabled;
 
     public User(User user) {
         super();
@@ -36,6 +36,8 @@ public class User implements Serializable {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.roles = user.getRoles();
+        this.isEnabled = user.getIsEnabled();
+
     }
 
     @DBRef(lazy = true)
@@ -48,13 +50,13 @@ public class User implements Serializable {
         this.email = userDTO.getEmail();
     }
 
-    public User(String id, String firstName, String lastName, String email, String password, boolean enabled) {
+    public User(String id, String firstName, String lastName, String email, String password, boolean isEnabled) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.isEnabled = enabled;
+        this.isEnabled = isEnabled;
     }
 
     public User(String id, String firstName, String lastName, String email) {

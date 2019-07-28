@@ -5,6 +5,7 @@ import br.com.workmade.domain.User;
 import br.com.workmade.service.RoleService;
 import br.com.workmade.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -21,7 +22,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private RoleService roleService;
     private PasswordEncoder passwordEncoder;
 
-
+    @Autowired
     public SetupDataLoader(
             UserService userService,
             RoleService roleService,
@@ -42,11 +43,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         User joao = new User(null, "João", "Souza", "joao@gmail.com");
         joao.setRoles(Arrays.asList(role_user));
         joao.setPassword(passwordEncoder.encode("123456"));
-        joao.setEnabled(true);
+        joao.setIsEnabled(true);
         User maria = new User(null, "Eliezer", "Mendes", "eli.mendes@gmail.com");
         maria.setRoles(Arrays.asList(role_admin,role_user));
         maria.setPassword(passwordEncoder.encode("123456"));
-        maria.setEnabled(true);
+        maria.setIsEnabled(true);
         User userIfNotExists1 = createUserIfNotExists(joao);
         User userIfNotExists2 = createUserIfNotExists(maria);
 

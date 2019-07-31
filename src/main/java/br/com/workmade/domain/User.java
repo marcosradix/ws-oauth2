@@ -14,11 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Document(collection="user")
-public class User implements Serializable {
-
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private static final long serialVersionUID = 1L;
+public class User extends GenericSerializable {
 
     @Id
     private String id;
@@ -48,6 +44,7 @@ public class User implements Serializable {
         this.firstName = userDTO.getFirstName();
         this.lastName = userDTO.getLastName();
         this.email = userDTO.getEmail();
+        this.password = userDTO.getPassword();
     }
 
     public User(String id, String firstName, String lastName, String email, String password, boolean isEnabled) {
